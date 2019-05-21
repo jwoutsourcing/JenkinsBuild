@@ -1,0 +1,20 @@
+---
+# Add Jenkins repository
+- import_tasks: repo.yml
+
+# Install dependencies
+- import_tasks: dependencies_deb.yml
+
+# Install Jenkins
+- name: Install Jenkins
+  sudo: yes
+  apt: pkg=jenkins state=latest update_cache=yes cache_valid_time=86400
+
+# Install Jenkins cli
+- import_tasks: cli.yml
+
+# Install/update Jenkins plugins
+- import_tasks: plugins.yml
+
+# Run configuration
+- import_tasks: config.yml

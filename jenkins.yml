@@ -1,0 +1,8 @@
+- name: Jenkins
+  hosts: all
+  become: yes
+  become_user: root
+  roles:
+    - jdk8
+    - jenkins
+

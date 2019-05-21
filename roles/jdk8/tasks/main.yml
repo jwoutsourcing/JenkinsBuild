@@ -1,0 +1,13 @@
+---
+- include_tasks: repo.yml
+
+- name: Automatically select the Oracle License
+  become: yes
+  become_user: root
+  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+  changed_when: false
+
+- name: Install Oracle Java
+  become: yes
+  become_user: root
+  apt: pkg={{ jdk_version }} update-cache=yes state=latest
