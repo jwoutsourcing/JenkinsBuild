@@ -20,4 +20,11 @@ end
 
 Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 8080, host: 9090
+
+ config.vm.provision "ansible" do |ansible|
+    ansible.compatibility_mode = "2.0"
+    ansible.playbook = "jenkins.yml"
+    ansible.inventory_path = ""
+    ansible.become = true
+  end
 end

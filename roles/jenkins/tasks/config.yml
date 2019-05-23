@@ -14,3 +14,24 @@
   sudo: yes
   when: email is defined
   template: src=hudson.tasks.Mailer.xml.j2 dest={{ jenkins_lib }}/hudson.tasks.Mailer.xml owner=jenkins group=jenkins mode=0644
+
+- name: Enable ufw
+  ufw: state=enabled policy=allow
+
+- name: Disable default in
+  ufw: direction=incoming policy=deny
+
+- name: Allow ssh in
+  ufw: rule=limit name=OpenSSH
+
+- name: 8080 is open
+  ufw: rule=allow port=8080 proto=tcp
+
+- name: Ensure jenkins_dest {{ jenkins_dest }} exists
+  file:
+    path: "{{ jenkins_dest }}"
+    state: directory
+    owner: jenkins
+    group: jenkins
+    mode: u+rwx
+    follow: true
