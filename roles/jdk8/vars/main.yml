@@ -1,5 +1,5 @@
 ---
-jdk_version: java-1.8.0-openjdk.x86_64 
+jdk_version: java-1.8.0-openjdk.x86_64
 oracle_java_apt_repository: 'deb http://ppa.launchpad.net/linuxuprising/java/ubuntu bionic main'
 oracle_java_apt_repository_key: 'EA8CACC073C3DB2A'
 oracle_java_cache_valid_time: 3600

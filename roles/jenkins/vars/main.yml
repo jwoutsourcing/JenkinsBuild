@@ -4,10 +4,10 @@ jenkins_dest: /opt/jenkins
 jenkins:
   deb:
     repo: 'deb http://pkg.jenkins-ci.org/debian binary/'
-    dependencies: 
+    dependencies:
       - 'git'
       - 'curl'
-  cli_dest: '{{ jenkins_dest }}/jenkins-cli.jar' 
+  cli_dest: '{{ jenkins_dest }}/jenkins-cli.jar'
   updates_dest: '{{ jenkins_dest }}/updates_jenkins.json'
 
 __jenkins_repo_url: deb https://pkg.jenkins.io/debian binary/

@@ -21,4 +21,3 @@
   when: plugins_updates.stdout != ''
   notify:
     - ' Immediately restart Jenkins on http or user changes.'
-
