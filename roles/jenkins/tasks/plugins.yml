@@ -13,11 +13,11 @@
     - 'Restart Jenkins'
 
 - name: List plugins to be updated
-  action: shell java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8080 list-plugins | grep ')$' | cut -f 1 -d ' ' | sed ':a;N;$!ba;s/\n/ /g'
+  shell: java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8080 list-plugins | grep ')$' | cut -f 1 -d ' ' | sed ':a;N;$!ba;s/\n/ /g'
   register: plugins_updates
 
 - name: Update plugins
-  action: command java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8080 install-plugin {{ plugins_updates.stdout }}
+  command: java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8080 install-plugin {{ plugins_updates.stdout }}
   when: plugins_updates.stdout != ''
   notify:
     - ' Immediately restart Jenkins on http or user changes.'
