@@ -4,7 +4,9 @@
 - name: Automatically select the Oracle License
   become: yes
   become_user: root
-  shell: echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+  shell: |
+     set -o pipefail
+     echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
   changed_when: false
 
 - name: debian | ensure the apt repository key is present
