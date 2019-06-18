@@ -7,8 +7,9 @@
 
 # Install Jenkins
 - name: Install Jenkins
-  sudo: yes
-  apt: pkg=jenkins state=latest update_cache=yes cache_valid_time=86400
+  become_user: yes
+  become: root
+  apt: pkg=jenkins update_cache=yes cache_valid_time=86400
 
 # Install Jenkins cli
 - import_tasks: cli.yml
