@@ -17,3 +17,13 @@ jenkins_init_file: /etc/default/jenkins
 jenkins_http_port: HTTP_PORT
 jenkins_java_options_env_var: JAVA_ARGS
 jenkins_version: 2.0
+plugins:
+  - 'git'
+  - 'copyartifact'
+  - 'build-pipeline-plugin'
+port: 8181
+prefix: '/build'
+email:
+  smtp_host: 'jwoutsourcing@outlook.com'
+  smtp_ssl: 'true'
+  default_email_suffix: '@outlook.com'
