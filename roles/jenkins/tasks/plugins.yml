@@ -2,7 +2,7 @@
 - name: List plugins
   shell: |
      set -o pipefail
-     java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8080 list-plugins | cut -f 1 -d ' '
+     java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }} list-plugins | cut -f 1 -d ' '
   when: plugins is defined
   register: plugins_installed
 
@@ -11,11 +11,11 @@
 - name: List plugins to be updated
   shell: |
      set -o pipefail
-     java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8080 list-plugins | grep ')$' | cut -f 1 -d ' ' | sed ':a;N;$!ba;s/\n/ /g'
+     java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8181 list-plugins | grep ')$' | cut -f 1 -d ' ' | sed ':a;N;$!ba;s/\n/ /g'
   register: plugins_updates
 
 - name: Update plugins
-  command: java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8080 install-plugin {{ plugins_updates.stdout }}
+  command: java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }} install-plugin {{ plugins_updates.stdout }}
   when: plugins_updates.stdout != ''
   notify:
     - ' Immediately restart Jenkins on http or user changes.'

@@ -3,4 +3,6 @@
 - name: Add jenkins apt-key
   become: yes
   become_user: root
-  apt_key: data="{{ lookup('file', 'jenkins-ci.org.key') }}" state=present
+  apt_key:
+    data: "{{ lookup('file', 'jenkins-ci.org.key') }}"
+    state: present

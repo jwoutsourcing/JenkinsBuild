@@ -1,10 +1,27 @@
 ---
+- name: Add repository for OpenJDK 8 (Ubuntu 14).
+  apt_repository: repo='ppa:openjdk-r/ppa'
+
+- name: Set the java_packages variable (Ubuntu).
+  set_fact:
+    java_packages:
+      - openjdk-8-jdk
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Java
+  apt:
+    name: "{{ java_packages }}"
+
 - name: Ensure dependencies are installed.
   apt:
-    name:
+    name: "{{ packages }}"
+  vars:
+    packages:
+      - python-apt
       - curl
+      - gnupg2
+      - gnupg-agent
       - apt-transport-https
-    state: present
 
 - name: Add Jenkins apt repository key.
   apt_key:
@@ -19,7 +36,7 @@
 
 - name: Download specific Jenkins version.
   get_url:
-    url: "{{ jenkins_pkg_url }}/jenkins_{{ jenkins_version }}_all.deb"
+    url: "{{ __jenkins_pkg_url }}/jenkins_{{ jenkins_version }}_all.deb"
     dest: "/tmp/jenkins_{{ jenkins_version }}_all.deb"
   when: jenkins_version is defined
 

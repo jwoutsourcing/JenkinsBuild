@@ -12,7 +12,7 @@
   register: jenkins_users_config
 
 - name: Install/update plugins
-  command: java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:8080 install-plugin {{ item }}
+  command: java -jar {{ jenkins.cli_dest }} -s http://{{ jenkins_hostname }}:{{ jenkins_http_port }} install-plugin {{ item }}
   when: plugins_installed.changed and plugins_installed.stdout.find('{{ item }}') == -1
   with_items: "{{ plugins }}"
   notify:

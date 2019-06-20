@@ -4,7 +4,7 @@
   become: yes
   become_user: root
   when: port is defined
-  lineinfile: dest=/etc/default/jenkins regexp=^HTTP_PORT= line=HTTP_PORT={{ port }}
+  lineinfile: dest=/etc/default/jenkins regexp=^HTTP_PORT= line=HTTP_PORT={{ jenkins_http_port }}
 
 - name: Configure Jenkins Prefix
   become: yes
@@ -27,8 +27,8 @@
 - name: Allow ssh in
   ufw: rule=limit name=OpenSSH
 
-- name: 8080 is open
-  ufw: rule=allow port=8080 proto=tcp
+- name: 8181 is open
+  ufw: rule=allow port={{ jenkins_http_port }} proto=tcp
 
 - name: Ensure jenkins_dest {{ jenkins_dest }} exists
   file:
